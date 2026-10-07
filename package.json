@@ -1,0 +1,23 @@
+{
+  "name": "la-mansion",
+  "version": "10.10.0",
+  "private": true,
+  "description": "LA MANSIÓN — Una casa para todas las historias.",
+  "type": "module",
+  "scripts": {
+    "start": "node server/server.js",
+    "dev": "node --watch server/server.js",
+    "check": "node --check server/server.js",
+    "cap:sync": "npx cap sync",
+    "cap:android": "npx cap open android",
+    "cap:ios": "npx cap open ios",
+    "db:check": "node -e \"import('pg').then(()=>console.log('pg ok'))\"",
+    "verify": "node --check server/server.js"
+  },
+  "dependencies": {
+    "@capacitor/core": "^7.4.3",
+    "@capacitor/android": "^7.4.3",
+    "@capacitor/ios": "^7.4.3",
+    "pg": "^8.16.3"
+  }
+}
