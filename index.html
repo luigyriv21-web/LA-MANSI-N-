@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>✦ LA MANSIÓN — Casa Creativa</title>
+<style>
+:root{
+ --green:#173C32;--sage:#718B78;--gold:#B89A5A;--paper:#F1E8D3;
+ --wine:#642F3B;--ink:#171916;--cream:#fbf6e9;--shadow:0 18px 50px rgba(23,25,22,.16);
+}
+*{box-sizing:border-box} body{margin:0;background:#efe6d2;color:var(--ink);font-family:Arial,sans-serif}
+button{font:inherit;cursor:pointer}.app{min-height:100vh;display:flex}
+aside{width:245px;background:var(--green);color:var(--paper);padding:26px 18px;position:fixed;inset:0 auto 0 0;z-index:5}
+.brand{font-family:Georgia,serif;text-align:center;font-size:25px;letter-spacing:2px;color:#f5ead0;margin-bottom:8px}
+.tag{text-align:center;font-size:11px;letter-spacing:2px;color:#cbbd9b;margin-bottom:30px}
+nav button{display:block;width:100%;text-align:left;background:none;border:0;color:#e8ddc4;padding:12px 13px;border-radius:10px;margin:4px 0}
+nav button:hover,nav button.active{background:rgba(241,232,211,.12);color:#fff}
+.mini{margin-top:28px;border-top:1px solid rgba(255,255,255,.12);padding-top:18px;font-size:12px;color:#c9c0aa;line-height:1.6}
+main{margin-left:245px;width:calc(100% - 245px);padding:28px;min-height:100vh}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:25px}
+h1,h2,h3{font-family:Georgia,serif;font-weight:normal;margin:0 0 10px}
+h1{font-size:38px;color:var(--green)} h2{font-size:29px;color:var(--green)}
+.sub{color:#6f6a5d}.actions{display:flex;gap:9px}
+.btn{border:1px solid #d3c6aa;background:var(--cream);padding:10px 15px;border-radius:9px;color:var(--green)}
+.btn.primary{background:var(--green);color:#fff;border-color:var(--green)}
+.screen{display:none}.screen.active{display:block}
+.hero{background:linear-gradient(135deg,#173c32,#2d5547);color:#f5ead0;border-radius:20px;padding:38px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.hero:after{content:"✦";position:absolute;right:45px;top:10px;font-size:150px;color:rgba(184,154,90,.18)}
+.hero h1{color:#f5ead0;font-size:46px}.hero p{max-width:620px;line-height:1.7}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px;margin-top:20px}
+.card{background:var(--cream);border:1px solid #ddcfb2;border-radius:15px;padding:20px;box-shadow:0 8px 25px rgba(23,25,22,.06)}
+.card .icon{font-size:28px;margin-bottom:8px}.card h3{font-size:20px}.card p{font-size:13px;line-height:1.55;color:#6f6a5d}
+.room{min-height:430px;border-radius:20px;background:linear-gradient(135deg,#274e42,#173c32);padding:28px;color:#f5ead0;position:relative;overflow:hidden}
+.room:before{content:"";position:absolute;inset:24px;border:1px solid rgba(184,154,90,.45);pointer-events:none}
+.room .window{position:absolute;right:12%;top:50px;width:180px;height:230px;border:9px solid #765f42;border-radius:12px;background:linear-gradient(#1a2332,#657d86 58%,#233c32);box-shadow:0 0 70px rgba(255,220,150,.15)}
+.room .desk{position:absolute;left:12%;bottom:55px;width:240px;height:95px;background:#6b4b34;border-radius:7px}
+.room .lamp{position:absolute;left:25%;bottom:145px;font-size:40px}
+.room .shelf{position:absolute;right:9%;bottom:40px;font-size:45px}
+.roomtext{position:absolute;left:55px;top:50px;z-index:2}.roomtext h2{color:#f5ead0;font-size:34px}
+.grid2{display:grid;grid-template-columns:1.2fr .8fr;gap:18px}.book{display:flex;gap:18px}.cover{width:120px;height:165px;border-radius:6px;background:linear-gradient(150deg,#642f3b,#b89a5a);display:grid;place-items:center;color:#fff;font-family:Georgia,serif;text-align:center;padding:12px;flex:none}
+.quote{font-family:Georgia,serif;font-size:21px;line-height:1.5;color:var(--green)}
+.door{height:360px;border-radius:20px;background:linear-gradient(90deg,#2b211b,#5d4430,#2b211b);display:grid;place-items:center;box-shadow:var(--shadow)}
+.door-inner{height:285px;width:190px;border:12px solid #b89a5a;border-radius:12px;background:#513b2d;display:grid;place-items:center;color:#f1e8d3;font-family:Georgia,serif;font-size:25px;text-align:center;box-shadow:inset 0 0 30px #201710}
+.feed{display:grid;gap:14px}.post{background:var(--cream);border:1px solid #ddcfb2;border-radius:15px;padding:18px}.posthead{display:flex;justify-content:space-between}.pill{font-size:11px;background:#e7ddc7;padding:5px 8px;border-radius:20px}.post p{line-height:1.6}
+.mail{border-left:4px solid var(--gold)} .muted{color:#777064;font-size:13px}
+.progress{height:8px;background:#ded3bb;border-radius:10px;overflow:hidden}.progress i{display:block;height:100%;width:72%;background:var(--gold)}
+.toast{position:fixed;right:24px;bottom:24px;background:var(--green);color:#fff;padding:14px 18px;border-radius:10px;display:none;z-index:20;box-shadow:var(--shadow)}
+@media(max-width:800px){
+ aside{width:72px;padding:18px 8px}.brand{font-size:18px}.tag,.mini,nav button span{display:none}
+ nav button{text-align:center;font-size:20px}.app main{margin-left:72px;width:calc(100% - 72px);padding:16px}
+ h1{font-size:30px}.hero h1{font-size:34px}.grid2{grid-template-columns:1fr}
+}
+
+.ritual-screen{margin:-28px;min-height:calc(100vh + 56px)!important;background:#101b18!important;color:#f1e8d3;position:relative;overflow:hidden}
+.ritual-stage{min-height:calc(100vh + 56px);display:grid;place-items:center;position:relative;text-align:center;background:radial-gradient(circle at 50% 42%,rgba(184,154,90,.14),transparent 28%),#101b18}
+.ritual-stars{position:absolute;top:8%;font-size:18px;color:#b89a5a;letter-spacing:12px;opacity:.8}
+.ritual-door-wrap{position:absolute;top:14%;width:260px;height:390px;filter:drop-shadow(0 0 45px rgba(184,154,90,.12))}
+.ritual-door{height:350px;width:225px;margin:auto;border:12px solid #9d7f49;border-radius:10px;background:linear-gradient(90deg,#251d18,#604833,#30231b);box-shadow:inset 0 0 45px #120d0a;position:relative;transition:transform 1.7s ease,opacity 1s ease;transform-origin:left center;z-index:2}
+.ritual-door.open{transform:perspective(900px) rotateY(-78deg);opacity:.15}
+.door-symbol{position:absolute;top:55px;left:50%;transform:translateX(-50%);font-size:45px;color:#b89a5a}
+.door-handle{position:absolute;right:25px;top:190px;width:12px;height:12px;background:#d6bd7e;border-radius:50%}
+.door-keyhole{position:absolute;right:22px;top:220px;color:#d6bd7e}
+.door-glow{position:absolute;left:50%;top:40px;width:170px;height:300px;transform:translateX(-50%);background:#e5c982;filter:blur(45px);opacity:.07}
+.ritual-copy{position:absolute;bottom:8%;max-width:620px;padding:20px}
+.ritual-copy h1,.reveal-panel h1{color:#f1e8d3;font-family:Georgia,serif;font-size:42px;font-weight:normal}
+.ritual-copy p,.reveal-panel p{color:#cfc4a9;line-height:1.7}
+.ritual-kicker{font-size:11px;letter-spacing:4px;color:#b89a5a;margin-bottom:12px}
+.ritual-btn{background:#b89a5a;color:#171916;border-color:#b89a5a;padding:13px 22px}
+.test-panel,.reveal-panel{display:none;position:absolute;inset:0;background:#f1e8d3;color:#171916;padding:7vh 8vw;overflow:auto}
+.test-panel.show,.reveal-panel.show{display:block}
+.test-head{display:flex;gap:15px;align-items:center;max-width:850px;margin:0 auto 45px;font-size:13px;color:#718b78}
+.test-line{height:6px;flex:1;background:#d9cdb1;border-radius:10px;overflow:hidden}.test-line i{display:block;height:100%;width:12%;background:#b89a5a;transition:.3s}
+.question{max-width:850px;margin:auto}.question h2{font-size:38px;margin-bottom:10px}.question p{color:#6d675a;margin-bottom:28px}
+.answers{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.answer{background:#fbf6e9;border:1px solid #d7c9ad;border-radius:12px;padding:18px;text-align:left;transition:.2s}.answer:hover{border-color:#b89a5a;transform:translateY(-2px)}
+.reveal-panel{text-align:center;background:radial-gradient(circle at 50% 35%,#fff9ea,#f1e8d3)}
+.key{font-size:85px;animation:keyFloat 1.8s infinite ease-in-out;margin:35px 0}
+@keyframes keyFloat{50%{transform:translateY(-14px) rotate(-4deg)}}
+@media(max-width:700px){.answers{grid-template-columns:1fr}.question h2{font-size:29px}.ritual-copy h1,.reveal-panel h1{font-size:32px}.test-panel,.reveal-panel{padding:5vh 6vw}}
+
+.live-strip{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 16px}
+.live-strip span{background:#e7ddc7;border:1px solid #d3c6aa;border-radius:999px;padding:8px 11px;font-size:11px;color:#315144}
+.card.featured{border-color:#b89a5a;box-shadow:0 10px 30px rgba(184,154,90,.13)}
+.room-control{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px}
+.room-control button{border:1px solid rgba(241,232,211,.25);background:rgba(0,0,0,.15);color:#f1e8d3;border-radius:9px;padding:9px 12px}
+.room-control button:hover{background:rgba(184,154,90,.18)}
+.statline{display:flex;gap:22px;flex-wrap:wrap;margin-top:14px;font-size:12px;color:#cfc4a9}
+.library-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
+.shelf-card{min-height:220px;position:relative;overflow:hidden}
+.shelf-card:after{content:"";position:absolute;bottom:0;left:0;right:0;height:20px;background:#6a4b34}
+.letter-paper{background:#fffaf0;border:1px solid #d7c9ad;border-radius:10px;padding:24px;font-family:Georgia,serif;line-height:1.7}
+@media(max-width:900px){.library-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.library-grid{grid-template-columns:1fr}.live-strip span{font-size:10px}}
+
+.modal{display:none;position:fixed;inset:0;background:rgba(15,22,19,.7);z-index:30;align-items:center;justify-content:center;padding:20px}
+.modal.show{display:flex}.modal-box{max-width:560px;width:100%;background:#f1e8d3;border-radius:18px;padding:28px;position:relative;box-shadow:0 25px 70px rgba(0,0,0,.35)}
+.modal-close{position:absolute;right:16px;top:12px;border:0;background:none;font-size:28px;color:#173c32}
+.editor-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:20px 0}
+.editor-grid button{padding:15px;border:1px solid #d3c6aa;background:#fbf6e9;border-radius:10px;text-align:left}
+
+/* 1.1 — product interactions */
+.searchbar{display:flex;gap:8px;margin-bottom:18px}.searchbar input{flex:1;padding:13px 15px;border:1px solid #d3c6aa;border-radius:10px;background:#fbf6e9;color:#171916}.chips{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 18px}.chip{border:1px solid #d3c6aa;background:#fbf6e9;padding:7px 11px;border-radius:999px;color:#315144;font-size:12px}.chip.active{background:#173c32;color:#fff}.result-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.profile-card{cursor:pointer}.profile-card:hover{transform:translateY(-2px)}.avatar{width:52px;height:52px;border-radius:50%;background:#718b78;color:#fff;display:grid;place-items:center;font-family:Georgia,serif;font-size:20px}.row{display:flex;gap:12px;align-items:center}.reader{max-width:900px;margin:auto;background:#fbf6e9;padding:38px;border:1px solid #d8cbb1;border-radius:16px;box-shadow:var(--shadow)}.reader h2{text-align:center}.chapter{font-family:Georgia,serif;font-size:18px;line-height:1.9}.chapter p:first-letter{font-size:46px;float:left;line-height:.8;padding-right:5px;color:var(--wine)}.composer{display:grid;gap:12px}.composer input,.composer textarea,.composer select{width:100%;padding:12px;border:1px solid #d3c6aa;border-radius:9px;background:#fbf6e9}.composer textarea{min-height:150px;resize:vertical}.taglist{display:flex;gap:6px;flex-wrap:wrap}.taglist span{background:#e7ddc7;padding:5px 8px;border-radius:999px;font-size:11px}.activity-dot{width:9px;height:9px;border-radius:50%;background:#718b78;display:inline-block}.room-bio{max-width:520px}.danger{border-color:#9b6570;color:#642f3b}.empty{padding:35px;text-align:center;color:#6f6a5d;border:1px dashed #cdbf9f;border-radius:14px}.mini-nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}.mini-nav button{border:0;background:#e7ddc7;padding:9px 12px;border-radius:9px;color:#315144}.success{border-left:4px solid #718b78}.mobile-create{display:none}@media(max-width:900px){.result-grid{grid-template-columns:1fr 1fr}}@media(max-width:600px){.result-grid{grid-template-columns:1fr}.mobile-create{display:block}}
+</style>
+<link rel="manifest" href="/manifest.webmanifest"><meta name="theme-color" content="#173C32"></head>
+<body>
+<div class="app">
+<aside>
+  <div class="brand">✦ LA MANSIÓN</div>
+  <div class="tag">CASA CREATIVA</div>
+  <nav>
+      <button class="active" data-screen="home">🏠 <span>La Casa</span></button>
+      <button data-screen="room">🚪 <span>Mi habitación</span></button>
+      <button data-screen="passage">🗝️ <span>El Pasillo</span></button>
+      <button data-screen="search">🔎 <span>Buscar</span></button>
+      <button data-screen="library">📚 <span>Biblioteca</span></button>
+      <button data-screen="gallery">🎨 <span>Galería</span></button>
+      <button data-screen="community">👥 <span>Comunidad</span></button>
+      <button data-screen="atelier">✦ <span>Atelier</span></button>
+      <button data-screen="salons">🎙️ <span>Salones</span></button>
+      <button data-screen="mail">💌 <span>Buzón</span></button>
+      <button data-screen="butler">🛎️ <span>Mayordomo</span></button>
+      <button data-screen="settings">⚙️ <span>Mi cuenta</span></button>
+    </nav>
+  <div class="mini">Mientras tú duermes,<br>alguien dentro de<br>LA MANSIÓN está creando algo.</div>
+</aside>
+
+<main>
+
+<section id="ritual" class="screen ritual-screen active">
+  <div class="ritual-stage" id="ritualStage">
+    <div class="ritual-stars">✦　✧　✦　✧　✦</div>
+    <div class="ritual-door-wrap">
+      <div class="ritual-door" id="ritualDoor">
+        <div class="door-symbol">✦</div>
+        <div class="door-handle"></div>
+        <div class="door-keyhole">◇</div>
+      </div>
+      <div class="door-glow"></div>
+    </div>
+    <div class="ritual-copy" id="ritualCopy">
+      <div class="ritual-kicker">EL RITUAL DE LA LLAVE</div>
+      <h1>Tu habitación te está esperando.</h1>
+      <p>Antes de entrar, debemos conocerte. No hay respuestas correctas. Solo hay una puerta esperando por ti.</p>
+      <button class="btn ritual-btn" onclick="startTest()">COMENZAR</button>
+    </div>
+  </div>
+  <div class="test-panel" id="testPanel">
+    <div class="test-head"><span id="testCount">1 / 8</span><div class="test-line"><i id="testProgress"></i></div></div>
+    <div id="questionArea"></div>
+  </div>
+  <div class="reveal-panel" id="revealPanel">
+    <div class="key">🗝️</div>
+    <div class="ritual-kicker">LA LLAVE TE HA ELEGIDO</div>
+    <h1 id="revealTitle">Tu habitación está lista.</h1>
+    <p id="revealText"></p>
+    <button class="btn ritual-btn" onclick="openRoom()">ABRIR MI PUERTA</button>
+  </div>
+</section>
+
+<section id="home" class="screen">
+<div class="top"><div><div class="sub">Buenas noches, Manu.</div><h1>La casa está despierta.</h1></div><div class="actions"><button class="btn" onclick="toast('💌 Tienes una carta nueva.')">💌</button><button class="btn" onclick="go('butler')">🛎️</button></div></div>
+
+<div class="live-strip">
+  <span>🕯️ LA CASA ESTÁ DESPIERTA</span>
+  <span>✍️ 18 escribiendo</span>
+  <span>🎨 7 creando</span>
+  <span>📖 24 leyendo</span>
+  <span>🎙️ 2 salones abiertos</span>
+</div>
+<div class="hero"><h1>✦ LA MANSIÓN</h1><p>Una casa para todas las historias. Entra, crea, lee, conoce personas y deja que tu habitación cuente quién eres.</p><button class="btn" onclick="go('room')">ENTRAR EN MI HABITACIÓN</button></div>
+<div class="cards">
+<div class="card"><div class="icon">📚</div><h3>7 libros nuevos</h3><p>Historias recién llegadas a la Biblioteca.</p></div>
+<div class="card"><div class="icon">🎨</div><h3>17 obras nuevas</h3><p>La Galería acaba de recibir nuevas piezas.</p></div>
+<div class="card"><div class="icon">🕯️</div><h3>28 creando ahora</h3><p>Personas escribiendo, dibujando y creando dentro de la casa.</p></div>
+<div class="card"><div class="icon">🎙️</div><h3>2 salones abiertos</h3><p>Hay conversaciones esperando habitantes.</p></div>
+</div>
+</section>
+
+<section id="room" class="screen">
+<div class="top"><div><div class="sub">Mi habitación</div><h1>Habitación 047</h1></div><button class="btn primary" onclick="openEditor()">✦ PERSONALIZAR</button></div>
+<div class="room"><div class="window"></div><div class="desk"></div><div class="lamp">🕯️</div><div class="shelf">📚</div><div class="roomtext"><h2>Donde las historias<br>despiertan de madrugada.</h2><p>Escritor · Diseñador · Lector</p></div></div>
+<div class="cards">
+<div class="card"><h3>🗝️ Tu progreso</h3><p>Nivel 3 · Creador</p><div class="progress"><i></i></div></div>
+<div class="card"><h3>📖 Tus libros</h3><p>3 publicados · 1 en progreso</p></div>
+<div class="card"><h3>💌 Tu buzón</h3><p>4 cartas esperando.</p><button class="btn" onclick="go('mail')">ABRIR</button></div>
+</div>
+</section>
+
+<section id="passage" class="screen">
+<div class="top"><div><div class="sub">Descubrimiento</div><h1>El Pasillo</h1></div></div>
+<div class="door"><div class="door-inner">✦<br><small>PARA TI</small></div></div>
+<div class="cards">
+<div class="card profile-card" onclick="go('reader')"><h3>📖 Nuevas historias</h3><p>Puertas que acaban de abrirse.</p><button class="btn">ENTRAR</button></div>
+<div class="card profile-card" onclick="showProfile('Lua','Fotógrafa · Artista','Fotografía, collage y pequeñas obsesiones por la noche.')"><h3>🎨 Artistas</h3><p>Habitaciones llenas de imágenes.</p><button class="btn">TOCAR UNA PUERTA</button></div>
+<div class="card"><h3>🌙 Activos ahora</h3><p>Habitantes creando esta noche.</p></div>
+<div class="card"><h3>🗝️ Personas para ti</h3><p>Creadores que parecen pertenecer a tu mundo.</p></div>
+</div>
+</section>
+
+<section id="library" class="screen">
+<div class="top"><div><div class="sub">📚 Estanterías</div><h1>La Biblioteca</h1></div><button class="btn primary" onclick="go('publish')">✦ ESCRIBIR UN LIBRO</button></div>
+<div class="grid2"><div class="card book"><div class="cover">EL JARDÍN<br>DE LOS<br>SECRETOS</div><div><h2 style="font-size:24px">El jardín de los secretos</h2><p class="muted">Manu Rivera · Romance · Misterio</p><p>Una historia sobre secretos, memoria y las decisiones que cambian una vida.</p><button class="btn primary" onclick="go('reader')">ABRIR LIBRO</button></div></div>
+<div class="card"><h3>✦ Recomendado para ti</h3><p class="quote">“Hay historias que no terminan cuando cierras el libro.”</p><p class="muted">Basado en lo que has leído esta semana.</p></div></div>
+</section>
+
+<section id="gallery" class="screen">
+<div class="top"><div><div class="sub">🎨 Exposición</div><h1>La Galería</h1></div></div>
+<div class="cards">
+<div class="card"><div style="height:190px;border-radius:10px;background:linear-gradient(135deg,#718b78,#f1e8d3);display:grid;place-items:center;font-size:65px">🌿</div><h3>Después de la lluvia</h3><p>Clara · Ilustración digital</p><button class="btn" onclick="toast('⭐ Obra admirada')">⭐ ADMIRAR</button></div>
+<div class="card"><div style="height:190px;border-radius:10px;background:linear-gradient(135deg,#642f3b,#b89a5a);display:grid;place-items:center;font-size:65px">🕯️</div><h3>La última habitación</h3><p>Alex · Pintura</p><button class="btn" onclick="toast('💌 Puedes escribir al artista')">💌 ESCRIBIR</button></div>
+<div class="card"><div style="height:190px;border-radius:10px;background:linear-gradient(135deg,#173c32,#718b78);display:grid;place-items:center;font-size:65px">🌙</div><h3>Medianoche</h3><p>Lua · Fotografía</p><button class="btn" onclick="toast('🔖 Obra guardada')">🔖 GUARDAR</button></div>
+</div>
+</section>
+
+<section id="community" class="screen">
+<div class="top"><div><div class="sub">🛋️ Conversaciones</div><h1>Sala de Estar</h1></div><button class="btn primary" onclick="toast('🪑 Nueva mesa creada')">+ CREAR MESA</button></div>
+<div class="feed">
+<div class="post"><div class="posthead"><b>✍️ Clara · Escritores de madrugada</b><span class="pill">Mesa de escritura</span></div><p>“Acabo de terminar el capítulo 12 y necesito saber si debería matar a este personaje.”</p><button class="btn" onclick="toast('💌 Has dejado una carta pública')">💌 ESCRIBIR</button></div>
+<div class="post"><div class="posthead"><b>📚 Mateo · Lectores compulsivos</b><span class="pill">Mesa de lectura</span></div><p>“Necesito una novela que me destruya emocionalmente. ¿Recomendaciones?”</p><button class="btn" onclick="toast('⭐ Admiración enviada')">⭐ ADMIRAR</button></div>
+</div>
+</section>
+
+<section id="atelier" class="screen">
+<div class="top"><div><div class="sub">✦ Creación</div><h1>El Atelier</h1></div></div>
+<div class="cards">
+<div class="card"><div class="icon">✍️</div><h3>Escribir juntos</h3><p>25 minutos. 12 personas creando al mismo tiempo.</p><button class="btn primary" onclick="toast('⏱️ Sesión de 25 minutos iniciada')">EMPEZAR</button></div>
+<div class="card"><div class="icon">💡</div><h3>Generador de ideas</h3><p>Una chispa para cuando no sabes por dónde empezar.</p><button class="btn" onclick="toast('💡 “Dos desconocidos reciben la misma carta...”')">DARME UNA IDEA</button></div>
+<div class="card"><div class="icon">🧩</div><h3>Reto de hoy</h3><p>Escribe una escena donde dos enemigos tengan que compartir una habitación.</p><button class="btn" onclick="toast('🧩 Reto añadido a tu habitación')">ACEPTAR RETO</button></div>
+<div class="card"><div class="icon">🕯️</div><h3>Ambientes</h3><p>Biblioteca, lluvia, bosque, café, mar o chimenea.</p><button class="btn" onclick="toast('🕯️ Ambiente de biblioteca activado')">REPRODUCIR</button></div>
+</div>
+</section>
+
+<section id="salons" class="screen">
+<div class="top"><div><div class="sub">🎙️ Conversaciones</div><h1>Los Salones</h1></div><button class="btn primary" onclick="toast('🎙️ Nuevo salón creado')">CREAR SALÓN</button></div>
+<div class="cards">
+<div class="card"><h3>🎙️ ¿Qué hace inolvidable una historia?</h3><p>4 invitados · 87 interesados · Hoy 21:00</p><button class="btn primary" onclick="toast('🎟️ Asiento reservado')">RESERVAR ASIENTO</button></div>
+<div class="card"><h3>🕯️ Noche de poesía</h3><p>Velada pública · Salón Principal · Mañana 20:00</p><button class="btn" onclick="toast('✦ Has sido invitado a la Velada')">ASISTIR</button></div>
+</div>
+</section>
+
+<section id="mail" class="screen">
+<div class="top"><div><div class="sub">💌 Correspondencia</div><h1>Tu Buzón</h1></div></div>
+<div class="feed">
+<div class="post mail"><b>💌 Clara te ha dejado una carta</b><p>“Acabo de terminar tu capítulo y necesitaba decirte algo...”</p><button class="btn" onclick="toast('💌 Carta abierta')">ABRIR CARTA</button></div>
+<div class="post mail"><b>⭐ Alguien admiró tu historia</b><p>“El jardín de los secretos” recibió una nueva admiración.</p></div>
+<div class="post mail"><b>🗝️ Invitación a un círculo</b><p>Misterio & Thriller quiere abrirte una puerta.</p><button class="btn primary" onclick="toast('🗝️ Has entrado al círculo')">ENTRAR</button></div>
+</div>
+</section>
+
+<section id="butler" class="screen">
+<div class="top"><div><div class="sub">🛎️ Actividad</div><h1>El Mayordomo</h1></div></div>
+<div class="feed">
+<div class="post"><b>🛎️ El mayordomo tiene noticias para ti.</b><p>🎟️ La Velada de poesía comienza mañana a las 20:00.</p></div>
+<div class="post"><b>📚 Tu Biblioteca</b><p>Un libro de un autor que sigues acaba de publicarse.</p></div>
+<div class="post"><b>🕯️ La casa está despierta</b><p>28 habitantes están creando ahora mismo.</p></div>
+</div>
+</section>
+
+<section id="search" class="screen">
+<div class="top"><div><div class="sub">🗝️ Descubrir habitantes</div><h1>El Pasillo</h1></div></div>
+<div class="searchbar"><input id="searchInput" placeholder="Busca historias, personas, arte o círculos…" oninput="runSearch()"><button class="btn primary" onclick="runSearch()">BUSCAR</button></div>
+<div class="chips"><button class="chip active" onclick="filterSearch(this,'all')">Todo</button><button class="chip" onclick="filterSearch(this,'writers')">✍️ Escritores</button><button class="chip" onclick="filterSearch(this,'artists')">🎨 Artistas</button><button class="chip" onclick="filterSearch(this,'readers')">📚 Lectores</button></div>
+<div id="searchResults" class="result-grid"></div>
+</section>
+
+<section id="reader" class="screen">
+<div class="top"><div><div class="sub">📖 Biblioteca · Lectura</div><h1 id="readerTitle">El jardín de los secretos</h1></div><button class="btn" onclick="go('library')">← VOLVER</button></div>
+<div class="reader"><p class="muted" style="text-align:center">Manu Rivera · Capítulo 1</p><h2>La puerta que nadie debía abrir</h2><div class="chapter"><p>La casa llevaba años cerrada, pero aquella noche una luz apareció en la ventana del segundo piso. Nadie en el pueblo quiso hablar de ella.</p><p>Clara se acercó a la verja con una carta entre las manos. No sabía quién la había enviado. Solo sabía que llevaba su nombre escrito con una tinta que parecía demasiado antigua.</p><p>Cuando la puerta se abrió sola, entendió que algunas historias no esperan a que estemos preparados.</p></div><div class="actions" style="justify-content:center;margin-top:28px"><button class="btn" onclick="toast('🔖 Capítulo guardado')">🔖 GUARDAR</button><button class="btn" onclick="toast('⭐ Frase guardada en Mis frases')">⭐ GUARDAR FRASE</button><button class="btn primary" onclick="toast('💌 Recomendación enviada')">RECOMENDAR</button></div></div>
+</section>
+
+<section id="publish" class="screen">
+<div class="top"><div><div class="sub">📖 Atelier · Biblioteca</div><h1>Publicar una historia</h1></div></div>
+<div class="card composer"><input id="pubTitle" placeholder="Título de tu historia"><select id="pubGenre"><option>Romance</option><option>Misterio</option><option>Thriller</option><option>Fantasía</option><option>Poesía</option><option>Contemporáneo</option></select><input id="pubTags" placeholder="Etiquetas: secretos, amor, noche…"><textarea id="pubSynopsis" placeholder="Cuéntale a la Mansión de qué trata…"></textarea><button class="btn primary" onclick="publishStory()">✦ PUBLICAR EN LA MANSIÓN</button><div id="publishResult"></div></div>
+</section>
+
+<section id="profile" class="screen">
+<div class="top"><div><div class="sub">🚪 Tocaste la puerta</div><h1 id="profileName">Habitación</h1></div><button class="btn" onclick="go('passage')">← VOLVER AL PASILLO</button></div>
+<div class="room" id="visitorRoom"><div class="window"></div><div class="roomtext"><div class="row"><div class="avatar" id="profileAvatar">C</div><div><h2 id="profileRoomTitle">La habitación de Clara</h2><p id="profileRole">Escritora · Lectora</p></div></div><p id="profileBio" class="room-bio">Aquí guardo historias que todavía no sé cómo contar.</p><div class="room-control"><button onclick="toast('🗝️ Ahora sigues a esta persona')">🗝️ SEGUIR</button><button onclick="go('mail');toast('💌 Carta preparada')">💌 ESCRIBIR</button><button onclick="toast('⭐ Habitación admirada')">⭐ ADMIRAR</button></div></div></div>
+<div class="cards"><div class="card"><h3>📚 Historias</h3><p>4 publicadas · 1 en progreso</p></div><div class="card"><h3>🎨 Obras</h3><p>12 piezas en la Galería</p></div><div class="card"><h3>🗝️ Círculos</h3><p>Romance · Lectores compulsivos</p></div></div>
+</section>
+
+<section id="settings" class="screen">
+  <div class="top"><div><div class="sub">⚙️ Configuración</div><h1>Mi cuenta</h1></div><button class="btn primary" onclick="openAuth()" id="accountButton">ENTRAR</button></div>
+  <div class="cards">
+    <div class="card"><div class="icon">🪪</div><h3>Mi identidad</h3><p>Manu Rivera · Escritor · Diseñador · Lector</p><button class="btn" onclick="toast('✦ Identidad abierta')">EDITAR IDENTIDAD</button></div>
+    <div class="card"><div class="icon">🔒</div><h3>Privacidad</h3><p>Controla quién puede visitar tu habitación, escribirte o invitarte.</p><button class="btn" onclick="toast('🔒 Preferencias de privacidad')">CONFIGURAR</button></div>
+    <div class="card"><div class="icon">🛡️</div><h3>Seguridad</h3><p>Cuenta, contraseña, sesiones y protección de contenido.</p><button class="btn" onclick="toast('🛡️ Seguridad de cuenta')">ABRIR</button></div>
+  </div>
+</section>
+</main>
+</div>
+<div class="toast" id="toast"></div>
+<div id="authModal" class="modal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeAuth()">×</button>
+    <div class="ritual-kicker">LA PUERTA DE TU CUENTA</div>
+    <h2 id="authTitle">Entrar a LA MANSIÓN</h2>
+    <p class="sub">Tu habitación, tus historias y tus cartas te esperan.</p>
+    <div class="composer">
+      <input id="authName" placeholder="Tu nombre" style="display:none">
+      <input id="authEmail" type="email" placeholder="Correo electrónico">
+      <input id="authPassword" type="password" placeholder="Contraseña (mínimo 8 caracteres)">
+      <button class="btn primary" onclick="submitAuth()" id="authSubmit">ENTRAR</button>
+      <button class="btn" onclick="toggleAuthMode()" id="authSwitch">Crear una cuenta</button>
+    </div>
+    <p id="authStatus" class="muted"></p>
+  </div>
+</div>
+
+<script src="/config.js"></script>
+<script>
+const buttons=document.querySelectorAll('nav button');
+const screens=document.querySelectorAll('.screen');
+function go(id){
+ if(id!=='ritual'){document.getElementById('ritual')?.classList.remove('active');}
+ screens.forEach(s=>s.classList.toggle('active',s.id===id));
+ buttons.forEach(b=>b.classList.toggle('active',b.dataset.screen===id));
+ window.scrollTo({top:0,behavior:'smooth'});
+}
+buttons.forEach(b=>b.addEventListener('click',()=>go(b.dataset.screen)));
+function toast(msg){
+ const t=document.getElementById('toast');t.textContent=msg;t.style.display='block';
+ clearTimeout(window.__t);window.__t=setTimeout(()=>t.style.display='none',2600);
+}
+
+const ritualQuestions=[
+ ["Cuando llegas a una mansión desconocida, ¿qué habitación buscas primero?",["📚 La Biblioteca","🎨 La Galería","🎹 La Sala de Música","🌿 El Jardín","🔐 La habitación prohibida"]],
+ ["Cuando tienes una idea, ¿qué haces con ella?",["✍️ La escribo","🎨 La dibujo","🎵 La convierto en música","🎬 La imagino como una escena","💭 La dejo crecer"]],
+ ["¿Cuándo suelen visitarte las mejores ideas?",["🌅 Al amanecer","☀️ Durante el día","🌇 Al atardecer","🌙 Por la noche","🕯️ Cuando todos duermen"]],
+ ["¿Qué objeto te llevarías de una caja cerrada?",["🗝️ Una llave","📖 Un libro","✉️ Una carta","🖼️ Un retrato","🧭 Una brújula"]],
+ ["¿Cómo prefieres crear?",["🕯️ Completamente solo","🎧 Con música","☕ En compañía","👥 Rodeado de creativos","🌙 Depende del día"]],
+ ["¿Qué paisaje quieres ver desde tu ventana?",["🌲 Un bosque","🌊 El mar","🏙️ La ciudad","🌹 Un jardín","🌙 Un cielo estrellado"]],
+ ["¿Qué quieres encontrar en LA MANSIÓN?",["📚 Historias que me atrapen","👥 Personas como yo","💡 Inspiración","🎨 Un lugar para mostrar mi arte","💌 Conexiones reales"]],
+ ["La Mansión queda en silencio. ¿Qué haces?",["📖 Leo","✍️ Escribo","🎨 Creo","🎧 Escucho música","🔎 Exploro"]]
+];
+let qIndex=0, answers=[];
+function startTest(){
+ document.getElementById('ritualCopy').style.display='none';
+ document.querySelector('.ritual-door-wrap').style.opacity='.15';
+ document.getElementById('testPanel').classList.add('show');
+ renderQuestion();
+}
+function renderQuestion(){
+ const q=ritualQuestions[qIndex];
+ document.getElementById('testCount').textContent=(qIndex+1)+' / '+ritualQuestions.length;
+ document.getElementById('testProgress').style.width=((qIndex+1)/ritualQuestions.length*100)+'%';
+ document.getElementById('questionArea').innerHTML='<div class="question"><div class="ritual-kicker">LA LLAVE · '+String(qIndex+1).padStart(2,'0')+'</div><h2>'+q[0]+'</h2><p>Elige la respuesta que más se parezca a ti.</p><div class="answers">'+q[1].map((a,i)=>'<button class="answer" onclick="chooseAnswer('+i+')">'+a+'</button>').join('')+'</div></div>';
+}
+function chooseAnswer(i){
+ answers.push(ritualQuestions[qIndex][1][i]);
+ qIndex++;
+ if(qIndex<ritualQuestions.length){renderQuestion();return;}
+ document.getElementById('testPanel').classList.remove('show');
+ const night=answers.filter(a=>a.includes('noche')||a.includes('todos duermen')||a.includes('cielo')).length;
+ const art=answers.filter(a=>a.includes('dibujo')||a.includes('arte')).length;
+ const social=answers.filter(a=>a.includes('compañía')||a.includes('creativos')||a.includes('Personas')||a.includes('Conexiones')).length;
+ let title='La habitación donde las historias despiertan.';
+ if(art>=2) title='La habitación donde las ideas toman forma.';
+ else if(social>=2) title='La habitación donde siempre hay una silla para alguien más.';
+ else if(night>=2) title='La habitación donde las historias despiertan de madrugada.';
+ document.getElementById('revealTitle').textContent=title;
+ document.getElementById('revealText').textContent='La Mansión ha preparado un espacio inspirado en tus respuestas. Y recuerda: esta habitación puede cambiar contigo.';
+ document.getElementById('revealPanel').classList.add('show');
+}
+function openRoom(){
+ document.getElementById('revealPanel').classList.remove('show');
+ const door=document.getElementById('ritualDoor'); door.classList.add('open');
+ setTimeout(()=>{go('room');toast('🗝️ Bienvenido/a a tu habitación.');},900);
+}
+
+function openEditor(){document.getElementById('roomEditor').classList.add('show')}
+function closeEditor(){document.getElementById('roomEditor').classList.remove('show')}
+function changeRoom(style){
+  const r=document.querySelector('.room');
+  const styles={
+    classic:'linear-gradient(135deg,#274e42,#173c32)',
+    library:'linear-gradient(135deg,#3e3327,#173c32)',
+    gothic:'linear-gradient(135deg,#241d2a,#171916)',
+    garden:'linear-gradient(135deg,#718b78,#294f42)',
+    night:'linear-gradient(135deg,#151c32,#10151f)',
+    sunset:'linear-gradient(135deg,#7c5041,#642f3b)'
+  };
+  r.style.background=styles[style]||styles.classic;
+  localStorage.setItem('mansion_room_style',style);
+  toast('✦ Habitación actualizada');
+}
+const savedRoom=localStorage.getItem('mansion_room_style');
+if(savedRoom) setTimeout(()=>changeRoom(savedRoom),0);
+
+const residents=[
+ {name:'Clara',role:'Escritora · Lectora',type:'writers',bio:'Aquí guardo historias que todavía no sé cómo contar.',initial:'C'},
+ {name:'Lua',role:'Fotógrafa · Artista',type:'artists',bio:'Colecciono luces, ventanas y momentos que nadie más mira.',initial:'L'},
+ {name:'Mateo',role:'Lector · Reseñista',type:'readers',bio:'Busco libros que me hagan cerrar la última página y quedarme en silencio.',initial:'M'},
+ {name:'Alex',role:'Pintor · Diseñador',type:'artists',bio:'Trabajo con pintura, formas y escenas que parecen recuerdos.',initial:'A'},
+ {name:'Sofía',role:'Escritora · Podcaster',type:'writers',bio:'Historias de misterio, café y conversaciones largas.',initial:'S'}
+];
+let activeFilter='all';
+function runSearch(){const q=(document.getElementById('searchInput')?.value||'').toLowerCase();const list=residents.filter(r=>(activeFilter==='all'||r.type===activeFilter)&&(!q||[r.name,r.role,r.bio].join(' ').toLowerCase().includes(q)));document.getElementById('searchResults').innerHTML=list.length?list.map(r=>`<div class="card profile-card" onclick="showProfile('${r.name}','${r.role}','${r.bio}')"><div class="row"><div class="avatar">${r.initial}</div><div><h3>${r.name}</h3><p class="muted">${r.role}</p></div></div><p>${r.bio}</p><button class="btn">🚪 TOCAR LA PUERTA</button></div>`).join(''):'<div class="empty">No encontramos esta puerta todavía. Prueba con otra palabra.</div>'}
+function filterSearch(el,type){activeFilter=type;document.querySelectorAll('.chip').forEach(x=>x.classList.remove('active'));el.classList.add('active');runSearch()}
+function showProfile(name,role,bio){document.getElementById('profileName').textContent=name;document.getElementById('profileAvatar').textContent=name[0];document.getElementById('profileRoomTitle').textContent='La habitación de '+name;document.getElementById('profileRole').textContent=role;document.getElementById('profileBio').textContent=bio;go('profile')}
+async function publishStory(){const title=document.getElementById('pubTitle').value.trim()||'Historia sin título';const genre=document.getElementById('pubGenre').value;const synopsis=document.getElementById('pubSynopsis').value.trim()||'Una nueva historia acaba de encontrar su lugar dentro de la Mansión.';const story={title,genre,synopsis,date:new Date().toLocaleDateString('es-ES')};try{if(window.mansionToken){const saved=await mansionApi('/api/stories',{method:'POST',body:JSON.stringify({title,genre,synopsis,status:'en progreso',tags:(document.getElementById('pubTags').value||'').split(',').map(x=>x.trim()).filter(Boolean)})});localStorage.setItem('mansion_last_story',JSON.stringify(saved));}else localStorage.setItem('mansion_last_story',JSON.stringify(story));document.getElementById('publishResult').innerHTML=`<div class="post success"><b>✦ Tu historia acaba de entrar en LA MANSIÓN.</b><p><strong>${title}</strong> · ${genre}</p><p>${synopsis}</p><button class="btn" onclick="go('library')">IR A MI BIBLIOTECA</button></div>`;toast('📖 Historia publicada')}catch(e){toast('⚠️ '+e.message)}}
+const lastStory=JSON.parse(localStorage.getItem('mansion_last_story')||'null');
+if(lastStory){setTimeout(()=>{const el=document.querySelector('#library .card.book h2');if(el)el.textContent=lastStory.title},0)}
+runSearch();
+</script>
+
+<div id="roomEditor" class="modal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeEditor()">×</button>
+    <div class="ritual-kicker">EL EDITOR DE HABITACIONES</div>
+    <h2>Haz que esta habitación sea tuya.</h2>
+    <p class="sub">Los cambios se guardan en este dispositivo.</p>
+    <div class="editor-grid">
+      <button onclick="changeRoom('classic')">🕯️ Clásica</button>
+      <button onclick="changeRoom('library')">📚 Biblioteca</button>
+      <button onclick="changeRoom('gothic')">🖤 Gótica</button>
+      <button onclick="changeRoom('garden')">🌿 Jardín</button>
+      <button onclick="changeRoom('night')">🌙 Noche</button>
+      <button onclick="changeRoom('sunset')">🌇 Atardecer</button>
+    </div>
+    <button class="btn primary" onclick="closeEditor()">GUARDAR HABITACIÓN</button>
+  </div>
+</div>
+<script>
+let authMode='login';
+window.mansionToken=localStorage.getItem('mansion_token')||'';
+window.mansionUser=JSON.parse(localStorage.getItem('mansion_user')||'null');
+function openAuth(mode='login'){authMode=mode;document.getElementById('authModal').classList.add('show');renderAuthMode()}
+function closeAuth(){document.getElementById('authModal').classList.remove('show')}
+function toggleAuthMode(){authMode=authMode==='login'?'register':'login';renderAuthMode()}
+function renderAuthMode(){document.getElementById('authTitle').textContent=authMode==='login'?'Entrar a LA MANSIÓN':'Crear mi habitación';document.getElementById('authSubmit').textContent=authMode==='login'?'ENTRAR':'CREAR CUENTA';document.getElementById('authSwitch').textContent=authMode==='login'?'Crear una cuenta':'Ya tengo una cuenta';document.getElementById('authName').style.display=authMode==='login'?'none':'block'}
+async function mansionApi(path,options={}){const headers={'Content-Type':'application/json',...(options.headers||{})};if(window.mansionToken)headers.Authorization='Bearer '+window.mansionToken;const base=window.MANSION_API_URL||'';const r=await fetch(base+path,{...options,headers});const d=await r.json().catch(()=>({}));if(!r.ok)throw new Error(d.error||'No pudimos abrir esta puerta.');return d}
+async function submitAuth(){const email=document.getElementById('authEmail').value.trim(),password=document.getElementById('authPassword').value,name=document.getElementById('authName').value.trim();try{const d=await mansionApi(authMode==='login'?'/api/auth/login':'/api/auth/register',{method:'POST',body:JSON.stringify({email,password,name,role:'creator'})});if(d.requires_email_confirmation){document.getElementById('authStatus').textContent='✉️ Revisa tu correo para confirmar tu cuenta y después entra.';return}window.mansionToken=d.token;window.mansionUser=d.user;localStorage.setItem('mansion_token',d.token);localStorage.setItem('mansion_user',JSON.stringify(d.user));document.getElementById('accountButton').textContent=d.user.name||'MI CUENTA';document.getElementById('authStatus').textContent='✦ La puerta se ha abierto.';toast('🗝️ Bienvenido/a a LA MANSIÓN');setTimeout(closeAuth,500)}catch(e){document.getElementById('authStatus').textContent=e.message}}
+if(window.mansionUser){const b=document.getElementById('accountButton');if(b)b.textContent=window.mansionUser.name||'MI CUENTA'}
+</script>
+<script>if("serviceWorker" in navigator){navigator.serviceWorker.register("/sw.js").catch(()=>{});}</script></body>
+</html>

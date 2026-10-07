@@ -1,0 +1,10 @@
+{
+  "name":"LA MANSIÓN — Casa Creativa",
+  "short_name":"LA MANSIÓN",
+  "start_url":"/",
+  "display":"standalone",
+  "background_color":"#173C32",
+  "theme_color":"#173C32",
+  "description":"Una casa para todas las historias.",
+  "icons":[{"src":"/icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]
+}
